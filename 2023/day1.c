@@ -3,8 +3,9 @@
 #include <ctype.h>
 
 // function that finds the first and last digits from a line and calculates the calibration value //
-int find_calibration(int *line, int size){
+int find_calibration(int *line){
     
+    int size = strlen(line);
     int dig1 = 0, dig2 = 0;
     int pos1 = 0;
     
@@ -41,25 +42,17 @@ int main(void){
         exit(1);
     }
 
-    // find size of file by using the steam //
-    fseek(fp, 0, SEEK_END);
-    size_t size = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
+    // read each line of the file and call find_calibration in order to get each value and sum later //
 
-    int *content = malloc((size + 1) * sizeof(int));    // store the content of the file //
-    if (content == NULL){
-        printf("Memory allocation error.\n");
-        exit(1);
+    int line[1024];
+    int sum = 0;
+    while (fscanf(file, "%1023d", line) != EOF){
+        int result = find_calibration(line);
+        fprintf(stderr,"%d", result);
+        sum+=result ;
     }
 
-    // read content of the file //
-    if (fread(content, sizeof(int), size, fp) != size) {
-        fprintf(stderr, "Error at reading file.\n");
-        free(content);
-        exit(1);
-    }
-    content[size] = 0;
-
+    fprintf(stderr,"Final calibration result is: %d", sum);
 
     return 0;
 }
