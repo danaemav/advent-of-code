@@ -10,19 +10,20 @@ int find_calibration(char line[]){
     
     int size = strlen(line);
     int dig1 = 0, dig2 = 0;
-    int pos1 = 0;
+    int pos1 = 0, countline;
     
     for(int i = 0; i < size; i++){
-        if(isdigit(line[i])) {   // search for a digit starting from the front of the line //
-            dig1 = line[i];
-            pos1 = i;           // if it is found, store its position and break loop //
+        countline = i ;
+        if(isdigit(line[i])) {      // search for a digit starting from the front of the line //
+            dig1 = line[i] -'0';    // convert char ascii code to decimal value //
+            pos1 = i;               // if it is found, store its position and break loop //
             break;
         }
     }
-    if (pos1 != 0) {                              // if a digit exists //
-        for(int i = size - 1 ; i > pos1; i--){        // iterate from the back of line to the position of digit1 //
+    if (pos1 != 0 || (pos1 == 0 && countline == 0)) {                              // if a digit exists //
+        for(int i = size ; i > pos1; i--){        // iterate from the back of line to the position of digit1 //
             if(isdigit(line[i])){
-                dig2 = line[i];
+                dig2 = line[i] - '0';
                 break;
             }
         }
@@ -53,11 +54,11 @@ int main(void){
 
     while (fgets(line, sizeof(line), fp) != NULL) {
         int result = find_calibration(line);
-        fprintf(stderr, "%d\n", result);
+        fprintf(stderr, "%d ", result);
         sum += result;                              // sum up calibration value from each line // 
     }
 
-    fprintf(stderr,"Final calibration result is: %d", sum);
+    fprintf(stderr,"\nFinal calibration result is: %d\n", sum);
 
     return 0;
 }
