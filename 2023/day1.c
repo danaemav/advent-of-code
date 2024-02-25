@@ -3,8 +3,10 @@
 #include <ctype.h>
 #include <string.h>
 
+#define MAX_LINE_CHARS 1024
+
 // function that finds the first and last digits from a line and calculates the calibration value //
-int find_calibration(int line[]){
+int find_calibration(char line[]){
     
     int size = strlen(line);
     int dig1 = 0, dig2 = 0;
@@ -17,8 +19,8 @@ int find_calibration(int line[]){
             break;
         }
     }
-    if (pos1 != 0) {                                // if a digit exists //
-        for(int i = size ; i > pos1; i--){          // iterate from the back of line to the position of digit1 //
+    if (pos1 != 0) {                              // if a digit exists //
+        for(int i = size - 1 ; i > pos1; i--){        // iterate from the back of line to the position of digit1 //
             if(isdigit(line[i])){
                 dig2 = line[i];
                 break;
@@ -44,15 +46,15 @@ int main(void){
         exit(1);
     }
 
-    // read each line of the file and call find_calibration in order to get each value and sum later //
-    // things missing - must do this for all lines //
-
-    int line[1024];
+    char line[MAX_LINE_CHARS];
     int sum = 0;
-    while (fscanf(fp, "%1023d", line) != EOF){
+
+    // read each line of the file in order to get each calibration value //
+
+    while (fgets(line, sizeof(line), fp) != NULL) {
         int result = find_calibration(line);
-        fprintf(stderr,"%d", result);
-        sum+=result ;
+        fprintf(stderr, "%d\n", result);
+        sum += result;                              // sum up calibration value from each line // 
     }
 
     fprintf(stderr,"Final calibration result is: %d", sum);
