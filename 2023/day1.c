@@ -10,7 +10,7 @@ int find_calibration(int line[]){
     int dig1 = 0, dig2 = 0;
     int pos1 = 0;
     
-    for(int i = 0; i < size){
+    for(int i = 0; i < size; i++){
         if(isdigit(line[i])) {   // search for a digit starting from the front of the line //
             dig1 = line[i];
             pos1 = i;           // if it is found, store its position and break loop //
