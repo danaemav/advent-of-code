@@ -76,12 +76,16 @@ void find_num(char line[], int pos1, int pos2, int dig1, int dig2){
 }
 
 // i have to check if line has only char - numbers or only digits at front and back //
-void combine_pos(char *line[], int pos_name, int pos_dig, int num_name, int num_dig){
+void combine_pos(char *line[], int pos_name1, int pos_name2, int pos_dig1,
+                int pos_dig2, int num_n1, int num_n2, int num_d1, int num_d2) {
     
-    int sum = 0;
-    if(pos_name < pos_dig){
-
+    int sum = 0, digit1;
+    
+    if (pos_name1 != -1){       // get whats number is found first besides found as char or digit //
+        min_pos = (pos_name1 < pos_dig1) ? pos_name1 : pos_dig1 ;
+        digit1 = (min_pos == pos_name1) ? num_n1 : num_d1 ;         // first number found //
     }
+
 
 }
 
