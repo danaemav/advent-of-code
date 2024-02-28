@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_LINES 2000
+#define MAX_LINES 5000
 
 // function that calculates the three-measurement windows //
 // for every line add to the first number the numbers of the next 2 lines //
