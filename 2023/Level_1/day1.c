@@ -10,7 +10,7 @@ int find_calibration(char line[]){
     
     int size = strlen(line);
     int dig1 = 0, dig2 = 0;
-    int pos1 = 0, countline;
+    int pos1 = 0, countline = 0;
     
     for(int i = 0; i < size; i++){
         countline = i ;
